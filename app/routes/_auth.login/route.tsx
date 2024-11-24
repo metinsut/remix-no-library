@@ -7,7 +7,7 @@ import { Link } from "@remix-run/react";
 import { z } from "zod";
 import { InputForm } from "~/components/form";
 import { Button } from "~/components/ui";
-import { authCookie, userIdCookie } from "~/services/auth.server";
+import { authCookie } from "~/services/auth.server";
 
 const schema = z.object({
   email: z.string().email(),
@@ -32,16 +32,11 @@ export async function action({ request }: ActionFunctionArgs) {
     },
   );
 
-  if (data.accessToken && data.userId) {
-    const cookies = await Promise.all([
-      authCookie.serialize(data.accessToken),
-      userIdCookie.serialize(String(data.userId)),
-    ]);
+  if (data.accessToken) {
+    const cookie = await authCookie.serialize(data.accessToken);
 
     const headers = new Headers();
-    for (const cookie of cookies) {
-      headers.append("Set-Cookie", cookie);
-    }
+    headers.append("Set-Cookie", cookie);
 
     return redirect("/", { headers });
   }

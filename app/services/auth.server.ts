@@ -1,14 +1,5 @@
 import { createCookie, redirect } from "@remix-run/node";
 
-export const userIdCookie = createCookie("userId", {
-  httpOnly: true,
-  path: "/",
-  sameSite: "lax",
-  secure: import.meta.env.PROD,
-  secrets: [import.meta.env.COOKIE_SECRET ?? ""],
-  maxAge: 60 * 60 * 24 * 30,
-});
-
 export const authCookie = createCookie("auth", {
   httpOnly: true,
   path: "/",
@@ -27,16 +18,15 @@ export async function redirectToLogin() {
 }
 
 export async function requireAuthCookie(request: Request) {
-  const userId = await userIdCookie.parse(request.headers.get("Cookie"));
+  const token = await authCookie.parse(request.headers.get("Cookie"));
 
-  if (!userId) {
+  if (!token) {
     return redirectToLogin();
   }
 
-  // const user = await api.get(`api/user/${userId}`, request);
   const user = await new Promise((resolve) => {
     setTimeout(() => {
-      resolve({ id: userId });
+      resolve({ name: "John Doe", email: "john.doe@example.com", token: "token" });
     }, 1000);
   });
 
