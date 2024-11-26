@@ -2,9 +2,14 @@ import { Moon, Sun } from "lucide-react";
 import { Card } from "~/components/ui/card";
 import { Label } from "~/components/ui/label";
 import { Switch } from "~/components/ui/switch";
+import { ThemeEnums, useTheme } from "~/hooks/use-theme";
 
 export function Theme() {
-  // const [theme, setTheme] = useTheme();
+  const { theme, toggleTheme } = useTheme();
+
+  const handleThemeChange = () => {
+    toggleTheme();
+  };
 
   return (
     <Card className="grid items-start justify-start gap-2 p-4">
@@ -13,10 +18,8 @@ export function Theme() {
         <div className="relative inline-grid h-9 grid-cols-[1fr_1fr] items-center text-sm font-medium">
           <Switch
             id="switch-13"
-            // checked={theme === ThemeType.DARK}
-            // onCheckedChange={() =>
-            //   setTheme(theme === ThemeType.DARK ? ThemeType.LIGHT : ThemeType.DARK)
-            // }
+            checked={theme === ThemeEnums.DARK}
+            onCheckedChange={handleThemeChange}
             className="peer absolute inset-0 h-[inherit] w-auto data-[state=unchecked]:bg-input/50 [&_span]:z-10 [&_span]:h-full [&_span]:w-1/2 [&_span]:transition-transform [&_span]:duration-300 [&_span]:[transition-timing-function:cubic-bezier(0.16,1,0.3,1)] data-[state=checked]:[&_span]:translate-x-full rtl:data-[state=checked]:[&_span]:-translate-x-full"
           />
           <span className="pointer-events-none relative ms-0.5 flex min-w-8 items-center justify-center text-center transition-transform duration-300 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] peer-data-[state=checked]:invisible peer-data-[state=unchecked]:translate-x-full rtl:peer-data-[state=unchecked]:-translate-x-full">

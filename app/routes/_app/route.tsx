@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
-import { SidebarProvider } from "~/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "~/components/ui/sidebar";
 import { requireAuthCookie } from "~/services/auth.server";
 import { Header } from "./header";
 import { AppSidebar } from "./sidebar/app-sidebar";
@@ -14,12 +14,12 @@ export default function Index() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main>
+      <SidebarInset>
         <Header />
         <div className="flex flex-col flex-1 w-full p-4">
           <Outlet />
         </div>
-      </main>
+      </SidebarInset>
     </SidebarProvider>
   );
 }
