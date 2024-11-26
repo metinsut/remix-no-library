@@ -8,11 +8,12 @@ This project demonstrates how to implement common web application features from 
 A custom authentication system built from scratch using:
 - Session-based authentication
 
-### 🎨 Theme Management (Coming Soon)
+### 🎨 Theme Management (Ready)
 - Dark/light mode switching
 - Theme persistence
-- System theme detection
+- System theme detection 
 - Custom hooks for theme control
+- Better implement system theme detection (TODO)
 
 ### 🌐 Internationalization (Coming Soon)
 - Language switching
